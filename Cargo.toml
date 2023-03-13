@@ -2,6 +2,7 @@
 name = "keto_recipes_api"
 version = "0.1.0"
 edition = "2021"
+rust-version = "1.68"
 
 [dependencies]
 axum = "0.6.11"
