@@ -8,8 +8,9 @@ async fn main() {
 
     let app = Router::new().route("/", get(root)).route("/recipes", get(get_recipes));
 
-    let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
-    tracing::info!("listening on http://{}", addr);
+    let port = 3000;
+    let addr = SocketAddr::from(([0, 0, 0, 0], port));
+    tracing::info!("listening on http://localhost:{port}");
     axum::Server::bind(&addr).serve(app.into_make_service()).await.unwrap();
 }
 
