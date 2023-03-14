@@ -8,7 +8,7 @@ async fn main() {
 
     let app = Router::new().route("/", get(root)).route("/recipes", get(get_recipes));
 
-    let port = 3000;
+    let port = std::env::var("PORT").unwrap_or("3000".into()).parse::<u16>().unwrap();
     let addr = SocketAddr::from(([0, 0, 0, 0], port));
     tracing::info!("listening on http://localhost:{port}");
     axum::Server::bind(&addr).serve(app.into_make_service()).await.unwrap();
