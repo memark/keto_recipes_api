@@ -1,3 +1,8 @@
 steps:
-  - name: gcr.io/cloud-builders/gcloud
-    args: ['run', 'deploy', 'hello4', '--source', '.', '--allow-unauthenticated', '--region', 'europe-north1']
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', 'europe-north1-docker.pkg.dev/keto-recipes-380514/keto-recipes-api/keto-recipes-api', '.' ]
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'europe-north1-docker.pkg.dev/keto-recipes-380514/keto-recipes-api/keto-recipes-api']
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['run', 'deploy', 'keto-recipes-api', '--image', 'europe-north1-docker.pkg.dev/keto-recipes-380514/keto-recipes-api/keto-recipes-api', '--region', 'europe-north1', '--allow-unauthenticated']
+images: ['europe-north1-docker.pkg.dev/keto-recipes-380514/keto-recipes-api/keto-recipes-api']
