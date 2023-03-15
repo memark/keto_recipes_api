@@ -21,10 +21,10 @@ async fn root() -> &'static str {
 async fn get_recipes() -> (StatusCode, Json<Vec<Recipe>>) {
     let recipe = Recipe {
         id: "1337".into(),
-        name: "biffsallad".into(),
-        ingress: "jättegod biffsallad".into(),
-        image_url: "someUrl".into(),
-        steps: vec![],
+        name: "Biffsallad".into(),
+        ingress: "Jättegod biffsallad".into(),
+        image_url: "https://img.koket.se/standard-mega/jennie-walldens-thailandska-biffsallad.jpg".into(),
+        steps: vec!["Blanda alla ingredienser".into(), "Ät".into()],
         ingredients: vec![Ingredient {
             name: "biff".into(),
             amount: Amount { quantity: 1, unit: "kg".into() },
