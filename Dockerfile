@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /src
 COPY . .
 ENV RUSTFLAGS='-C linker=x86_64-linux-gnu-gcc'
-RUN cargo install --target $BUILD_TARGET --path .
+RUN cargo install --target $BUILD_TARGET --locked --path .
 
 FROM --platform=$PRODUCTION_PLATFORM gcr.io/distroless/cc as production
 COPY --from=builder /usr/local/cargo/bin/keto_recipes_api /app/keto_recipes_api
