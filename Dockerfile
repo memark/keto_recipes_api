@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /src
 COPY . .
 ENV RUSTFLAGS='-C linker=x86_64-linux-gnu-gcc'
+# cargo install uses release configuration by default.
 RUN cargo install --target $BUILD_TARGET --locked --path .
 
 FROM --platform=$PRODUCTION_PLATFORM gcr.io/distroless/cc as production
