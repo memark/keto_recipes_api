@@ -1,12 +1,16 @@
 use axum::{ routing::get, http::StatusCode, Json, Router };
 use serde::{ Serialize };
 use std::net::SocketAddr;
+use tower_http::cors::{ CorsLayer, Any };
 
 #[tokio::main]
 async fn main() {
     tracing_subscriber::fmt::init();
 
-    let app = Router::new().route("/", get(root)).route("/recipes", get(get_recipes));
+    let app = Router::new()
+        .route("/", get(root))
+        .route("/recipes", get(get_recipes))
+        .layer(CorsLayer::new().allow_origin(Any));
 
     let port = std::env::var("PORT").unwrap_or("3000".into()).parse::<u16>().unwrap();
     let addr = SocketAddr::from(([0, 0, 0, 0], port));
