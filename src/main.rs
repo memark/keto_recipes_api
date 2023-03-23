@@ -10,16 +10,21 @@ use tower_http::trace::TraceLayer;
 async fn main() {
     tracing_subscriber::fmt().with_max_level(tracing::Level::DEBUG).init();
 
-    let app = Router::new()
+    let port = std::env::var("PORT").unwrap_or("3000".into()).parse::<u16>().unwrap();
+    let addr = SocketAddr::from(([0, 0, 0, 0], port));
+
+    let router = create_router();
+
+    tracing::info!("listening on http://localhost:{port}");
+    axum::Server::bind(&addr).serve(router.into_make_service()).await.unwrap();
+}
+
+fn create_router() -> Router {
+    Router::new()
         .route("/", get(root))
         .route("/recipes", get(get_recipes))
         .layer(CorsLayer::new().allow_origin(Any))
-        .layer(TraceLayer::new_for_http());
-
-    let port = std::env::var("PORT").unwrap_or("3000".into()).parse::<u16>().unwrap();
-    let addr = SocketAddr::from(([0, 0, 0, 0], port));
-    tracing::info!("listening on http://localhost:{port}");
-    axum::Server::bind(&addr).serve(app.into_make_service()).await.unwrap();
+        .layer(TraceLayer::new_for_http())
 }
 
 async fn root() -> &'static str {
