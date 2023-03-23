@@ -6,6 +6,19 @@ steps:
       [
         "build",
         "-t",
+        "test-image",
+        "--target",
+        "builder",
+        ".",
+      ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['run', 'test-image', 'cargo', 'test', '--target', 'x86_64-unknown-linux-gnu']
+
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-t",
         "europe-north1-docker.pkg.dev/keto-recipes-380514/keto-recipes-api/keto-recipes-api:$SHORT_SHA",
         ".",
       ]
