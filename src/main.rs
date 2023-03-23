@@ -52,6 +52,7 @@ async fn get_recipes() -> (StatusCode, Json<Vec<Recipe>>) {
 mod tests {
     use super::*;
     use axum::{ body::Body, http::{ Request, StatusCode } };
+    use pretty_assertions::assert_eq;
     use tower::ServiceExt;
 
     #[tokio::test]
