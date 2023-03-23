@@ -63,4 +63,15 @@ mod tests {
             .unwrap();
         assert_eq!(response.status(), StatusCode::OK);
     }
+
+    #[tokio::test]
+    async fn root_should_have_cors_header() {
+        let router = create_router();
+
+        let response = router
+            .oneshot(Request::builder().uri("/").body(Body::empty()).unwrap()).await
+            .unwrap();
+
+        assert_eq!(response.headers().get("access-control-allow-origin").unwrap(), "*");
+    }
 }
