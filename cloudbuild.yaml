@@ -1,4 +1,4 @@
-# yamllint disable rule:line-length
+# yamllint disable rule:document-start rule:line-length
 
 # Kan man bryta ut en variabel här?
 
