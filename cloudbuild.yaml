@@ -49,3 +49,6 @@ images:
   [
     "europe-north1-docker.pkg.dev/keto-recipes-380514/keto-recipes-api/keto-recipes-api:$SHORT_SHA",
   ]
+
+options:
+  machineType: "E2_HIGHCPU_8"
