@@ -12,6 +12,7 @@ steps:
         ".",
       ]
   - name: 'gcr.io/cloud-builders/docker'
+    # Run tests in release mode to reuse the compilation done by the build target anyway.
     args: ['run', 'test-image', 'cargo', 'test', '--release', '--target', 'x86_64-unknown-linux-gnu']
 
   - name: "gcr.io/cloud-builders/docker"
