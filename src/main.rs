@@ -51,7 +51,16 @@ async fn get_recipes() -> (StatusCode, Json<Vec<Recipe>>) {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use axum::{ body::Body, http::{ Request, StatusCode } };
+    use tower::ServiceExt;
 
-    #[test]
-    fn test1() {}
+    #[tokio::test]
+    async fn root_should_return_ok() {
+        let router = create_router();
+
+        let response = router
+            .oneshot(Request::builder().uri("/").body(Body::empty()).unwrap()).await
+            .unwrap();
+        assert_eq!(response.status(), StatusCode::OK);
+    }
 }
