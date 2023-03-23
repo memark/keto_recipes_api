@@ -12,7 +12,7 @@ steps:
         ".",
       ]
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['run', 'test-image', 'cargo', 'test', '--target', 'x86_64-unknown-linux-gnu']
+    args: ['run', 'test-image', 'cargo', 'test', '--release', '--target', 'x86_64-unknown-linux-gnu']
 
   - name: "gcr.io/cloud-builders/docker"
     args:
