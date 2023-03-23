@@ -66,4 +66,15 @@ mod tests {
         assert_eq!(response.status(), StatusCode::OK);
         assert_eq!(response.headers().get("access-control-allow-origin").unwrap(), "*");
     }
+
+    #[tokio::test]
+    async fn get_recipes_should_return_ok_and_data() {
+        let router = create_router();
+
+        let response = router
+            .oneshot(Request::builder().uri("/recipes").body(Body::empty()).unwrap()).await
+            .unwrap();
+
+        assert_eq!(response.status(), StatusCode::OK);
+    }
 }
