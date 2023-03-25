@@ -34,7 +34,7 @@ async fn root() -> &'static str {
 }
 
 async fn get_recipes() -> (StatusCode, Json<Vec<Recipe>>) {
-    let recipe = Recipe {
+    let recipe1 = Recipe {
         id: "1337".into(),
         name: "Biffsallad".into(),
         ingress: "Jättegod biffsallad".into(),
@@ -45,7 +45,24 @@ async fn get_recipes() -> (StatusCode, Json<Vec<Recipe>>) {
             amount: Amount { quantity: 1, unit: "kg".into() },
         }],
     };
-    let recipes = vec![recipe];
+    let recipe2 = Recipe {
+        id: "1338".into(),
+        name: "Kålpudding".into(),
+        ingress: "Mustig kålpudding som sköter sig själv i ugnen.".into(),
+        image_url: "https://assets.icanet.se/e_sharpen:80,q_auto,dpr_1.25,w_718,h_718,c_lfill/imagevaultfiles/id_143436/cf_259/kalpudding_(grundrecept).jpg".into(),
+        steps: vec!["Blanda alla ingredienser".into(), "Ät".into()],
+        ingredients: vec![
+            Ingredient {
+                name: "kål".into(),
+                amount: Amount { quantity: 1, unit: "kg".into() },
+            },
+            Ingredient {
+                name: "pudding".into(),
+                amount: Amount { quantity: 1, unit: "kg".into() },
+            }
+        ],
+    };
+    let recipes = vec![recipe1, recipe2];
 
     (StatusCode::OK, Json(recipes))
 }
